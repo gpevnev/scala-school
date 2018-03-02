@@ -2,8 +2,6 @@ package lectures.l1
 
 import org.scalatest.{FlatSpec, Matchers}
 
-// sbt server - incremantal compilation??
-
 object CountRoundToLower {
   def undefined() = throw new IllegalArgumentException("*.5")
 

@@ -1,5 +1,7 @@
 package homework.l2
 
+import scala.annotation.tailrec
+
 /**
   * В этом домашнем задании вам нужно написать так называёмую функцию свёртки (fold).
   * Что она должна делать:
@@ -16,6 +18,17 @@ package homework.l2
   */
 object ListFunctions {
 
-  def fold[A, B](startValue: B, list: List[A])(f: (B, A) => B): B = ???
+  def fold[A, B](startValue: B, list: List[A])(f: (B, A) => B): B = {
+
+    @tailrec
+    def loop(acc: B, list: List[A]): B =
+      list match {
+        case Nil => acc
+        case _ => loop(f (acc, list.head), list.tail)
+      }
+
+    loop(startValue, list)
+  }
+
 
 }

@@ -12,10 +12,10 @@ class RegexTest extends FlatSpecLike with Matchers {
         |Title,Author,Genre,Height,Publisher
         |Fundamentals of Wavelets,"Goswami, Jaideva",signal_processing,228,Wiley
         |Data Smart,"Foreman, John",data_science,235,Wiley
-      """.stripMargin
+        |""".stripMargin
     ) shouldBe Seq(
-      Book("Fundamentals of Wavelets", "Goswami, Jaideva", "signal_processing", 228, "Wiley"),
-      Book("Data Smart", "Foreman, John", "data_science", 235, "Wiley")
+      PrsBook("Fundamentals of Wavelets", "Goswami, Jaideva", "signal_processing", 228, "Wiley"),
+      PrsBook("Data Smart", "Foreman, John", "data_science", 235, "Wiley")
     )
   }
 }

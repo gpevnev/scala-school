@@ -28,6 +28,8 @@ class PartialFunction1 extends App {
     val f = pipeline(Seq(f1, f2, f3))
     println(s"$x -> ${f(x)}")
   }
-
-  def pipeline(fx: Seq[PartialFunction[Int, Int]]): Int => Int = ???
+  // TODO: make this thing work
+  def pipeline(fx: Seq[PartialFunction[Int, Int]]): Int => Int = ??? // (x: Int) => {
+//    fx.foldLeft(x)((acc: Int, elem) => {elem.applyOrElse(acc, x: Int => acc)})
+//  }
 }

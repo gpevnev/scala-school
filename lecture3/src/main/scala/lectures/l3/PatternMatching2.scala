@@ -10,8 +10,17 @@ case class Turtle() extends Animal
 /**
   * Необходимо реализовать функцию showAnimal, так, чтобы она возвращала результат, указанный в комментарии к вызову
   */
-object PatternMatching2 extends App {
-  def showAnimal(animal: Animal): String = ???
+class PatternMatching2 extends App {
+  def showAnimal(animal: Animal): String =
+    animal match {
+      case Fish(ocean) => s"Fish from $ocean ocean"
+      case Dog("CatDog", _, _) | Cat("CatDog", _) => "CatDog!"
+      case Dog(name, _, true) => s"$name dog, Bark-bark!"
+      case Dog(name, _, false) => s"Good boy $name"
+      case Cat(name, _) => s" Hello, $name"
+      case Dino() => "I don't know Dino"
+      case Turtle() => "I don't know Tutle"
+    }
 
   showAnimal(Fish("Indian")) // Fish from Indican ocean
 

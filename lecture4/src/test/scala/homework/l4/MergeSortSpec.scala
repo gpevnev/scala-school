@@ -10,6 +10,7 @@ class MergeSortSpec extends FlatSpec with Matchers {
     val randomSeq = Seq.fill(Random.nextInt(16) + 16)(Random.nextInt(10000))
     val sorted = MergeSort.mergeSort(randomSeq)
     sorted shouldBe randomSeq.sorted
+    
   }
 
 }

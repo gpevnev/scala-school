@@ -1,4 +1,5 @@
 package homework.l4
+import scala.collection.immutable
 
 /**
   * Помогите курьерам разобраться с обслуживанием адресов
@@ -24,9 +25,7 @@ case class Traffic(degree: Double)
 
 object Courier {
   def couriers(courierCount: Int): List[Courier] =
-    (for (i <- 1 to courierCount) yield {
-      Courier(i)
-    }).toList
+    (1 to courierCount).map(Courier(_)).toList
 }
 
 case class Courier(index: Int) {
@@ -35,9 +34,7 @@ case class Courier(index: Int) {
 
 object Address {
   def addresses(addressesCount: Int): List[Address] =
-    (for (i <- 1 to addressesCount) yield {
-      Address(s"$i$i$i")
-    }).toList
+    (1 to addressesCount).map(i => Address(s"$i$i$i")).toList
 }
 
 case class Address(postIndex: String)
@@ -54,24 +51,19 @@ object CouriersWithComprehension extends App {
   val cours = couriers(courierCount)
 
   // какие адреса были обслужены
-  def serveAddresses(addresses: List[Address], couriers: List[Courier]) = {
+  def serveAddresses(addresses: List[Address], couriers: List[Courier]): Seq[Address] = {
     var accum = 0
-    for (courier <- couriers;
-         trafficDegree = traffic().degree;
-         t <- 0 until courier.canServe if trafficDegree < 5 && accum < addresses.length
-    ) yield {
+    couriers.flatMap(cour => (0 until cour.canServe).withFilter(_ => traffic().degree < 5 && accum < addresses.length).map(_ => {
       val addr = addresses(accum)
       accum = accum + 1
       addr
-    }
+    }))
   }
 
   def traffic(): Traffic = Traffic(Math.random() * 10)
 
   def printServedAddresses(addresses: List[Address], couriers: List[Courier]): Unit =
-    for (a <- serveAddresses(addresses, couriers)) {
-      println(a.postIndex)
-    }
+    serveAddresses(addresses, couriers).foreach(a => println(a.postIndex))
 
   printServedAddresses(addrs, cours)
 

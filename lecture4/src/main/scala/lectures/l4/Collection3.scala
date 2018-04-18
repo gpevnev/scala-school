@@ -29,9 +29,23 @@ object Collection3 extends App {
     require(passengers.nonEmpty, "Stateroom is empty")
   }
 
-  def sort(list: Seq[Person]): Seq[Stateroom] = ???
+  def sort(list: Seq[Person]): Seq[Stateroom] = {
+    val (m, f) = list.partition(_ == Male)
+    val mixed = (Seq.fill(m.size % 4)(Male) ++ Seq.fill(f.size % 4)(Female)).splitAt(4)
+    (Seq.fill[Stateroom](m.size / 4)(Stateroom(Seq.fill(4)(Male))) ++
+      Seq.fill[Stateroom](f.size / 4)(Stateroom(Seq.fill(4)(Female))) ++
+      Seq(Stateroom(mixed._1), Stateroom(mixed._2))).filterNot(_.passengers.isEmpty)
+  }
 
-  def count(list: Seq[Stateroom]): Map[StateroomType, Int] = ???
+  def toStateroomType(stateroom: Stateroom): StateroomType =
+    stateroom.passengers match {
+      case p if p.forall(_ == Collection3.Male) => MaleOnlyStateroom
+      case p if p.forall(_ == Collection3.Female) => FemaleOnlyStateroom
+      case _ => MixedStateroom
+  }
+
+  def count(list: Seq[Stateroom]): Map[StateroomType, Int] =
+    list.map(x => toStateroomType(x) -> list.count(_ == x)).toMap
 
   val males = Seq.fill(Random.nextInt(20))(Male)
   val females = Seq.fill(Random.nextInt(20))(Female)

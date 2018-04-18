@@ -13,7 +13,7 @@ object PatternMatching1 extends App {
     }
   def f2(xs: Seq[Any]): Unit = {
     xs match {
-      case x +: xs => {
+      case x +: xs =>
         println(
           x match {
             case s: String => s"Got string: $s"
@@ -23,7 +23,6 @@ object PatternMatching1 extends App {
             case any => s"Unexpected value: $any"
           })
         f2(xs)
-      }
       case Nil =>
     }
   }
